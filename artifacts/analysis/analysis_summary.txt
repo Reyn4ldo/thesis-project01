@@ -1,0 +1,23 @@
+AMR SURVEILLANCE ANALYSIS - SUMMARY
+================================================================================
+
+Input file: data/processed/cleaned_data.csv
+Output directory: artifacts/analysis
+
+DATASET OVERVIEW:
+  Total isolates: 487
+  MDR isolates: 39 (8.0%)
+  Mean MAR index: 0.103
+
+PATTERN DISCOVERY (UNSUPERVISED LEARNING):
+  K-Means best K: 2
+  K-Means silhouette: 0.521
+  Hierarchical best K: 2
+  Hierarchical silhouette: 0.506
+  DBSCAN clusters: 18
+  DBSCAN noise points: 137
+
+OUTPUT FILES:
+  Descriptive analysis: artifacts/analysis/descriptive/
+  Unsupervised learning: artifacts/analysis/unsupervised/
+  Comprehensive report: artifacts/analysis/comprehensive_analysis_report.txt
