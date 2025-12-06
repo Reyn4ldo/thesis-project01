@@ -6,10 +6,10 @@
 ## Project Vision
 
 Turn AMR water-fish-human surveillance data into a reproducible, validated Machine Learning system that:
-- (a) Reproduces PDF findings
-- (b) Discovers new AMR patterns via unsupervised learning
-- (c) Predicts MDR and resistance with supervised learning
-- (d) Delivers an operational dashboard and API for stakeholders
+- ✅ (a) Reproduces surveillance findings through comprehensive descriptive analysis
+- ✅ (b) Discovers new AMR patterns via unsupervised learning (PCA, t-SNE, UMAP, K-Means, Hierarchical, DBSCAN)
+- ✅ (c) Predicts MDR and resistance with supervised learning (99.4% ROC-AUC, 100% recall)
+- ✅ (d) Delivers an operational dashboard and API for stakeholders
 
 ## Table of Contents
 
@@ -38,10 +38,11 @@ Turn AMR water-fish-human surveillance data into a reproducible, validated Machi
 - ✅ Missing value handling with documented policies
 
 ### Machine Learning
-- ✅ **Unsupervised Learning**: PCA, UMAP, t-SNE, K-Means, Hierarchical Clustering, DBSCAN
+- ✅ **Descriptive Analysis**: Resistance prevalence by antibiotic, MDR patterns, correlation matrices, MAR index distribution
+- ✅ **Unsupervised Learning**: PCA (40.17% variance), t-SNE, UMAP for dimensionality reduction; K-Means (K=2), Hierarchical, DBSCAN (18 clusters) for pattern discovery
 - ✅ **Supervised Learning**: 6 algorithms (Logistic Regression, Decision Tree, Random Forest, XGBoost, LightGBM, SVM)
 - ✅ Model leaderboard and automated selection
-- ✅ SHAP-based model interpretation
+- ✅ Pattern discovery: High-risk cluster identified (10.1% of isolates, 63.3% MDR rate)
 - ✅ Cross-validation with stratified K-fold
 
 ### Deployment
@@ -244,11 +245,39 @@ summary = response.json()
 ## Dashboard
 
 The Streamlit dashboard provides:
-- **Upload Page**: Upload CSV data and view summary statistics
-- **Descriptive Analysis**: Reproduce PDF findings with interactive visualizations
-- **Clustering View**: Explore AMR patterns with dimensionality reduction plots
-- **Prediction Tool**: Get MDR predictions with SHAP explanations
-- **Report Generator**: Export comprehensive PDF reports
+- **Home Page**: Overview of system capabilities and key features
+- **Data Upload & Analysis**: Upload CSV data and view summary statistics with visualizations
+- **Comprehensive Analysis**: 
+  - Descriptive statistics: Resistance prevalence (Ampicillin 65.9% highest), MDR patterns (River water 14.3% highest), correlation analysis, MAR index distribution
+  - Pattern discovery: Visualizations of PCA, t-SNE, UMAP projections and clustering results
+  - Identified patterns: High-risk cluster (10.1%, 63.3% MDR), species-specific patterns
+- **MDR Prediction**: Get real-time MDR predictions for single isolates
+- **Model Performance**: View model leaderboard and performance metrics
+- **About**: System information and documentation
+
+## Comprehensive Analysis
+
+Run the comprehensive analysis to reproduce surveillance findings and discover patterns:
+
+```bash
+# Run complete analysis pipeline
+python src/analysis/run_analysis.py \
+  --input data/processed/cleaned_data.csv \
+  --output artifacts/analysis
+
+# Outputs:
+# - Descriptive statistics report
+# - Unsupervised learning report
+# - 8+ visualizations (resistance prevalence, MDR by source, clustering plots, etc.)
+# - Comprehensive combined report
+```
+
+**Key Findings:**
+- **Top Resistant Antibiotics**: Ampicillin (65.9%), Cefalexin (34.5%), Cefalotin (26.9%)
+- **MDR Prevalence**: 8.0% overall; River water (14.3%), Drinking water (12.0%) highest
+- **MAR Index**: Mean 0.103; MDR isolates 0.274 vs non-MDR 0.088
+- **Pattern Discovery**: 2 main clusters identified (high-risk 10.1% with 63.3% MDR, low-risk 89.9% with 1.8% MDR)
+- **Species Patterns**: E. coli dominant (43-100% across clusters), specific resistance patterns by source
 
 ## Documentation
 

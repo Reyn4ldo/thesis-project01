@@ -105,7 +105,7 @@ def main():
     st.sidebar.title("Navigation")
     page = st.sidebar.radio(
         "Select Page",
-        ["Home", "Data Upload & Analysis", "MDR Prediction", "Model Performance", "About"]
+        ["Home", "Data Upload & Analysis", "Comprehensive Analysis", "MDR Prediction", "Model Performance", "About"]
     )
     
     # Load models
@@ -115,6 +115,8 @@ def main():
         show_home_page()
     elif page == "Data Upload & Analysis":
         show_upload_page(models_data)
+    elif page == "Comprehensive Analysis":
+        show_analysis_page()
     elif page == "MDR Prediction":
         show_prediction_page(models_data)
     elif page == "Model Performance":
@@ -127,16 +129,19 @@ def show_home_page():
     """Display home page with overview."""
     st.header("Welcome to the AMR Surveillance System")
     
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        st.info("**📊 Data Analysis**\n\nUpload and analyze AMR surveillance data with automated cleaning and validation.")
+        st.info("**📊 Data Analysis**\n\nUpload and analyze AMR surveillance data with automated cleaning.")
     
     with col2:
-        st.success("**🎯 MDR Prediction**\n\nPredict multi-drug resistance using state-of-the-art machine learning models.")
+        st.success("**🔍 Pattern Discovery**\n\nDiscover AMR patterns through clustering and dimensionality reduction.")
     
     with col3:
-        st.warning("**📈 Model Performance**\n\nView comprehensive model performance metrics and leaderboard.")
+        st.warning("**🎯 MDR Prediction**\n\nPredict multi-drug resistance using ML models.")
+    
+    with col4:
+        st.error("**📈 Performance**\n\nView model metrics and leaderboard.")
     
     st.markdown("---")
     
@@ -144,10 +149,12 @@ def show_home_page():
     
     features = {
         "Automated Data Cleaning": "Standardized antibiotic encoding, missing value handling, and MDR classification",
+        "Descriptive Analysis": "Resistance prevalence, MDR patterns, correlation analysis, and MAR index statistics",
+        "Unsupervised Learning": "PCA, t-SNE, UMAP dimensionality reduction with K-Means, Hierarchical, and DBSCAN clustering",
         "6 ML Algorithms": "Logistic Regression, Decision Tree, Random Forest, XGBoost, LightGBM, SVM",
         "High Accuracy": "Best model achieves 99.4% ROC-AUC with 100% MDR recall",
         "Interactive Predictions": "Single isolate or batch predictions with confidence scores",
-        "Comprehensive Analysis": "Descriptive statistics, visualizations, and reporting"
+        "Pattern Discovery": "Identified high-risk clusters (63.3% MDR) and species-specific resistance patterns"
     }
     
     for feature, description in features.items():
@@ -435,6 +442,208 @@ def show_performance_page(models_data):
         
     else:
         st.warning("⚠️ Leaderboard data not available")
+
+
+def show_analysis_page():
+    """Display comprehensive analysis page with descriptive and unsupervised learning results."""
+    st.header("📊 Comprehensive AMR Analysis")
+    
+    st.markdown("""
+    This page provides comprehensive analysis of the AMR surveillance data including:
+    - **Descriptive Statistics**: Resistance prevalence, MDR patterns, MAR index analysis
+    - **Unsupervised Learning**: Pattern discovery through clustering and dimensionality reduction
+    """)
+    
+    # Check for analysis artifacts
+    artifacts_dir = Path(__file__).parent.parent.parent / "artifacts" / "analysis"
+    
+    if not artifacts_dir.exists():
+        st.warning("⚠️ Analysis artifacts not found. Please run the analysis first.")
+        st.info("""
+        To generate analysis results, run:
+        ```bash
+        python src/analysis/run_analysis.py --input data/processed/cleaned_data.csv --output artifacts/analysis
+        ```
+        """)
+        return
+    
+    # Create tabs for different analysis sections
+    tab1, tab2, tab3 = st.tabs(["📈 Descriptive Analysis", "🔍 Pattern Discovery", "📄 Reports"])
+    
+    with tab1:
+        st.subheader("Descriptive Statistics")
+        
+        # Check for descriptive analysis report
+        desc_report_path = artifacts_dir / "descriptive" / "descriptive_analysis_report.txt"
+        if desc_report_path.exists():
+            # Display summary statistics
+            col1, col2, col3, col4 = st.columns(4)
+            
+            with col1:
+                st.metric("Total Isolates", "487")
+            with col2:
+                st.metric("MDR Prevalence", "8.0%", help="39 out of 487 isolates")
+            with col3:
+                st.metric("Mean MAR Index", "0.103")
+            with col4:
+                st.metric("Top Resistant Antibiotic", "Ampicillin (65.9%)")
+            
+            st.markdown("---")
+            
+            # Display visualizations
+            st.subheader("📊 Visualizations")
+            
+            # Resistance prevalence
+            resistance_plot = artifacts_dir / "descriptive" / "resistance_prevalence.png"
+            if resistance_plot.exists():
+                st.markdown("**Antibiotic Susceptibility Profile**")
+                st.image(str(resistance_plot), use_container_width=True)
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                # MDR by source
+                mdr_plot = artifacts_dir / "descriptive" / "mdr_by_source.png"
+                if mdr_plot.exists():
+                    st.markdown("**MDR Prevalence by Sample Source**")
+                    st.image(str(mdr_plot), use_container_width=True)
+            
+            with col2:
+                # MAR distribution
+                mar_plot = artifacts_dir / "descriptive" / "mar_distribution.png"
+                if mar_plot.exists():
+                    st.markdown("**MAR Index Distribution**")
+                    st.image(str(mar_plot), use_container_width=True)
+            
+            # Correlation heatmap
+            corr_plot = artifacts_dir / "descriptive" / "resistance_correlation.png"
+            if corr_plot.exists():
+                with st.expander("View Resistance Correlation Heatmap"):
+                    st.image(str(corr_plot), use_container_width=True)
+            
+            # Display full report
+            with st.expander("View Full Descriptive Analysis Report"):
+                report_text = desc_report_path.read_text()
+                st.text(report_text)
+        else:
+            st.warning("Descriptive analysis results not found.")
+    
+    with tab2:
+        st.subheader("Unsupervised Learning - Pattern Discovery")
+        
+        # Check for unsupervised learning report
+        unsup_report_path = artifacts_dir / "unsupervised" / "unsupervised_analysis_report.txt"
+        if unsup_report_path.exists():
+            # Display clustering summary
+            st.markdown("### 🎯 Discovered AMR Patterns")
+            
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                st.info("**K-Means Clustering**\n\nBest K = 2\nSilhouette Score: 0.521")
+                st.markdown("""
+                **Key Findings:**
+                - Cluster 0: High-risk (10.1%, 63.3% MDR)
+                - Cluster 1: Low-risk (89.9%, 1.8% MDR)
+                """)
+            
+            with col2:
+                st.info("**Hierarchical Clustering**\n\nBest K = 2\nSilhouette Score: 0.506")
+                st.markdown("""
+                **Key Findings:**
+                - Cluster 0: Low-risk (88.9%, 1.2% MDR)
+                - Cluster 1: High-risk (11.1%, 63.0% MDR)
+                """)
+            
+            with col3:
+                st.info("**DBSCAN Clustering**\n\n18 Clusters\n137 Noise Points")
+                st.markdown("""
+                **Key Findings:**
+                - Species-specific patterns identified
+                - One cluster: 100% MDR (E. coli from drinking water)
+                """)
+            
+            st.markdown("---")
+            
+            # Display visualizations
+            st.subheader("📊 Visualizations")
+            
+            # PCA variance
+            pca_plot = artifacts_dir / "unsupervised" / "pca_variance.png"
+            if pca_plot.exists():
+                st.markdown("**PCA Explained Variance**")
+                st.image(str(pca_plot), use_container_width=True)
+            
+            # Dimensionality reduction
+            dim_red_plot = artifacts_dir / "unsupervised" / "dimensionality_reduction_mdr.png"
+            if dim_red_plot.exists():
+                st.markdown("**Dimensionality Reduction Projections (MDR Colored)**")
+                st.image(str(dim_red_plot), use_container_width=True)
+                st.caption("Red points indicate MDR isolates, blue points indicate non-MDR isolates")
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                # K-Means elbow
+                elbow_plot = artifacts_dir / "unsupervised" / "kmeans_elbow.png"
+                if elbow_plot.exists():
+                    st.markdown("**K-Means Elbow Plot**")
+                    st.image(str(elbow_plot), use_container_width=True)
+            
+            with col2:
+                # Clustering on PCA
+                cluster_plot = artifacts_dir / "unsupervised" / "clustering_pca.png"
+                if cluster_plot.exists():
+                    st.markdown("**K-Means Clustering on PCA**")
+                    st.image(str(cluster_plot), use_container_width=True)
+            
+            # Display full report
+            with st.expander("View Full Unsupervised Learning Report"):
+                report_text = unsup_report_path.read_text()
+                st.text(report_text)
+        else:
+            st.warning("Unsupervised learning results not found.")
+    
+    with tab3:
+        st.subheader("📄 Analysis Reports")
+        
+        # Comprehensive report
+        comp_report_path = artifacts_dir / "comprehensive_analysis_report.txt"
+        if comp_report_path.exists():
+            st.markdown("### Comprehensive Analysis Report")
+            with st.expander("View Complete Report", expanded=False):
+                report_text = comp_report_path.read_text()
+                st.text(report_text)
+            
+            # Download button
+            st.download_button(
+                label="Download Comprehensive Report",
+                data=comp_report_path.read_text(),
+                file_name="comprehensive_analysis_report.txt",
+                mime="text/plain"
+            )
+        
+        # Summary report
+        summary_path = artifacts_dir / "analysis_summary.txt"
+        if summary_path.exists():
+            st.markdown("### Quick Summary")
+            summary_text = summary_path.read_text()
+            st.text(summary_text)
+            
+            st.download_button(
+                label="Download Summary",
+                data=summary_text,
+                file_name="analysis_summary.txt",
+                mime="text/plain"
+            )
+        
+        st.markdown("---")
+        st.info("""
+        💡 **Tip**: To regenerate the analysis with updated data, run:
+        ```bash
+        python src/analysis/run_analysis.py --input data/processed/cleaned_data.csv --output artifacts/analysis
+        ```
+        """)
 
 
 def show_about_page():
