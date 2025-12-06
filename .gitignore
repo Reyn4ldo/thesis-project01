@@ -148,8 +148,9 @@ Thumbs.db
 
 # Project specific
 logs/*.log
-models/*.pkl
-models/*.joblib
+# Keep model files for now (they're small)
+# models/*.pkl
+# models/*.joblib
 models/*.h5
 artifacts/*.csv
 artifacts/*.pkl
@@ -157,7 +158,8 @@ deliverables/*.pdf
 mlruns/
 .mlflow/
 data/interim/*.csv
-data/processed/*.csv
+# Keep processed data for testing
+# data/processed/*.csv
 
 # Temporary files
 tmp/
