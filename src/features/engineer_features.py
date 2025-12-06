@@ -66,17 +66,23 @@ class FeatureEngineer:
                         )
         
         # Select feature columns
-        feature_cols = (
-            antibiotic_cols +
-            [f"{col}_encoded" for col in categorical_cols if col in df_features.columns] +
-            ["num_resistant", "num_tested", "mar_index_calculated"]
-        )
-        
-        # Filter to existing columns
-        feature_cols = [col for col in feature_cols if col in df_features.columns]
-        
         if fit:
+            # During training, use all available features
+            feature_cols = (
+                antibiotic_cols +
+                [f"{col}_encoded" for col in categorical_cols if col in df_features.columns] +
+                ["num_resistant", "num_tested", "mar_index_calculated"]
+            )
+            # Filter to existing columns
+            feature_cols = [col for col in feature_cols if col in df_features.columns]
             self.feature_names = feature_cols
+        else:
+            # During prediction, use the expected feature names from training
+            # and fill missing features with 0 (representing susceptible/missing)
+            feature_cols = self.feature_names
+            for col in feature_cols:
+                if col not in df_features.columns:
+                    df_features[col] = 0.0
         
         logger.info(f"Engineered {len(feature_cols)} features")
         

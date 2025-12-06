@@ -222,7 +222,7 @@ def show_upload_page(models_data):
                             labels={"x": "Species", "y": "Count"},
                             title="Distribution of Bacterial Species"
                         )
-                        fig.update_xaxis(tickangle=-45)
+                        fig.update_xaxes(tickangle=-45)
                         st.plotly_chart(fig, use_container_width=True)
                     
                     # Sample source distribution
@@ -287,13 +287,15 @@ def show_prediction_page(models_data):
         
         source = st.selectbox(
             "Sample Source",
-            ["drinking_water", "river_water", "fish_tilapia", "fish_bangus"]
+            ["drinking_water", "river_water", "lake_water", "fish_tilapia", 
+             "fish_banak", "fish_gusaw", "fish_kaolang", 
+             "effluent_water_treated", "effluent_water_untreated"]
         )
     
     with col2:
         region = st.selectbox(
             "Administrative Region",
-            ["region_iii_central_luzon", "region_iv_a_calabarzon", "ncr"]
+            ["region_iii_central_luzon", "region_viii_eastern_visayas", "barmm"]
         )
     
     st.subheader("Antibiotic Susceptibility Results")
