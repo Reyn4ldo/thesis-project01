@@ -1,0 +1,55 @@
+================================================================================
+AMR SURVEILLANCE DATA - DESCRIPTIVE ANALYSIS REPORT
+================================================================================
+
+DATASET OVERVIEW
+--------------------------------------------------------------------------------
+Total Isolates: 487
+Antibiotic Tests: 23
+MDR Isolates: 39 (8.0%)
+Non-MDR Isolates: 448
+MAR Index (mean ± std): 0.103 ± 0.095
+MAR Index Range: [0.000, 0.652]
+
+TOP 10 MOST RESISTANT ANTIBIOTICS
+--------------------------------------------------------------------------------
+Ampicillin                              :   65.9%
+Cefalexin                               :   34.5%
+Cefalotin                               :   26.9%
+Tetracycline                            :   24.6%
+Doxycycline                             :   22.0%
+Amoxicillin Clavulanic Acid             :   18.9%
+Trimethoprim Sulfamethazole             :   11.9%
+Chloramphenicol                         :    8.0%
+Gentamicin                              :    5.1%
+Amikacin                                :    4.9%
+
+MULTI-DRUG RESISTANCE (MDR) ANALYSIS
+--------------------------------------------------------------------------------
+MDR Prevalence: 8.0%
+
+MDR by Sample Source:
+  River Water                             :  14.3% (8/56)
+  Drinking Water                          :  12.0% (10/83)
+  Fish Banak                              :  11.4% (4/35)
+  Fish Tilapia                            :   7.0% (8/115)
+  Fish Kaolang                            :   6.0% (3/50)
+  Fish Gusaw                              :   5.8% (4/69)
+  Effluent Water Untreated                :   2.8% (1/36)
+  Lake Water                              :   2.6% (1/38)
+  Effluent Water Treated                  :   0.0% (0/5)
+
+MAR INDEX ANALYSIS
+--------------------------------------------------------------------------------
+Mean MAR Index: 0.103
+Median MAR Index: 0.087
+Standard Deviation: 0.095
+Range: [0.000, 0.652]
+
+MAR Index by MDR Status:
+  Non-MDR   : 0.088 (n=448)
+  MDR       : 0.274 (n=39)
+
+================================================================================
+END OF REPORT
+================================================================================

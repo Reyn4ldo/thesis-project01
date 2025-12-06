@@ -1,0 +1,254 @@
+================================================================================
+COMPREHENSIVE AMR SURVEILLANCE ANALYSIS REPORT
+================================================================================
+
+This report combines descriptive statistics and unsupervised learning
+to provide comprehensive insights into AMR patterns.
+
+================================================================================
+
+================================================================================
+AMR SURVEILLANCE DATA - DESCRIPTIVE ANALYSIS REPORT
+================================================================================
+
+DATASET OVERVIEW
+--------------------------------------------------------------------------------
+Total Isolates: 487
+Antibiotic Tests: 23
+MDR Isolates: 39 (8.0%)
+Non-MDR Isolates: 448
+MAR Index (mean ± std): 0.103 ± 0.095
+MAR Index Range: [0.000, 0.652]
+
+TOP 10 MOST RESISTANT ANTIBIOTICS
+--------------------------------------------------------------------------------
+Ampicillin                              :   65.9%
+Cefalexin                               :   34.5%
+Cefalotin                               :   26.9%
+Tetracycline                            :   24.6%
+Doxycycline                             :   22.0%
+Amoxicillin Clavulanic Acid             :   18.9%
+Trimethoprim Sulfamethazole             :   11.9%
+Chloramphenicol                         :    8.0%
+Gentamicin                              :    5.1%
+Amikacin                                :    4.9%
+
+MULTI-DRUG RESISTANCE (MDR) ANALYSIS
+--------------------------------------------------------------------------------
+MDR Prevalence: 8.0%
+
+MDR by Sample Source:
+  River Water                             :  14.3% (8/56)
+  Drinking Water                          :  12.0% (10/83)
+  Fish Banak                              :  11.4% (4/35)
+  Fish Tilapia                            :   7.0% (8/115)
+  Fish Kaolang                            :   6.0% (3/50)
+  Fish Gusaw                              :   5.8% (4/69)
+  Effluent Water Untreated                :   2.8% (1/36)
+  Lake Water                              :   2.6% (1/38)
+  Effluent Water Treated                  :   0.0% (0/5)
+
+MAR INDEX ANALYSIS
+--------------------------------------------------------------------------------
+Mean MAR Index: 0.103
+Median MAR Index: 0.087
+Standard Deviation: 0.095
+Range: [0.000, 0.652]
+
+MAR Index by MDR Status:
+  Non-MDR   : 0.088 (n=448)
+  MDR       : 0.274 (n=39)
+
+================================================================================
+END OF REPORT
+================================================================================
+
+================================================================================
+
+================================================================================
+AMR SURVEILLANCE - UNSUPERVISED LEARNING REPORT
+================================================================================
+
+DIMENSIONALITY REDUCTION
+--------------------------------------------------------------------------------
+PCA: 2 components
+  Cumulative variance explained: 40.17%
+t-SNE: 2 components
+  KL divergence: 0.0284
+UMAP: 2 components
+
+CLUSTERING ANALYSIS
+--------------------------------------------------------------------------------
+K-Means: Best K=2
+  Silhouette score: 0.521
+Hierarchical: Best K=2
+  Silhouette score: 0.506
+DBSCAN: 18 clusters, 137 noise points
+  Silhouette score: 1.000
+
+DISCOVERED AMR PATTERNS
+--------------------------------------------------------------------------------
+
+K-Means Patterns:
+
+  Cluster 0:
+    Size: 49 (10.1%)
+    MDR rate: 63.3%
+    Mean MAR index: 0.272
+    Dominant species: escherichia_coli (67.3%)
+    Dominant source: river_water (24.5%)
+
+  Cluster 1:
+    Size: 438 (89.9%)
+    MDR rate: 1.8%
+    Mean MAR index: 0.084
+    Dominant species: escherichia_coli (43.6%)
+    Dominant source: fish_tilapia (23.5%)
+
+Hierarchical Patterns:
+
+  Cluster 0:
+    Size: 433 (88.9%)
+    MDR rate: 1.2%
+    Mean MAR index: 0.083
+    Dominant species: escherichia_coli (43.4%)
+    Dominant source: fish_tilapia (23.8%)
+
+  Cluster 1:
+    Size: 54 (11.1%)
+    MDR rate: 63.0%
+    Mean MAR index: 0.262
+    Dominant species: escherichia_coli (66.7%)
+    Dominant source: drinking_water (24.1%)
+
+DBSCAN Patterns:
+
+  Cluster 0:
+    Size: 34 (7.0%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.174
+    Dominant species: enterobacter_cloacae_complex (70.6%)
+    Dominant source: fish_gusaw (35.3%)
+
+  Cluster 1:
+    Size: 18 (3.7%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.174
+    Dominant species: enterobacter_cloacae_complex (83.3%)
+    Dominant source: drinking_water (33.3%)
+
+  Cluster 2:
+    Size: 83 (17.0%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.043
+    Dominant species: klebsiella_pneumoniae_ssp_pneumoniae (86.7%)
+    Dominant source: fish_tilapia (20.5%)
+
+  Cluster 3:
+    Size: 37 (7.6%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.043
+    Dominant species: klebsiella_pneumoniae_ssp_pneumoniae (94.6%)
+    Dominant source: fish_tilapia (24.3%)
+
+  Cluster 4:
+    Size: 6 (1.2%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.174
+    Dominant species: enterobacter_aerogenes (66.7%)
+    Dominant source: fish_gusaw (50.0%)
+
+  Cluster 5:
+    Size: 80 (16.4%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.000
+    Dominant species: escherichia_coli (97.5%)
+    Dominant source: effluent_water_untreated (20.0%)
+
+  Cluster 6:
+    Size: 5 (1.0%)
+    MDR rate: 100.0%
+    Mean MAR index: 0.304
+    Dominant species: escherichia_coli (100.0%)
+    Dominant source: drinking_water (60.0%)
+
+  Cluster 7:
+    Size: 6 (1.2%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.174
+    Dominant species: escherichia_coli (100.0%)
+    Dominant source: river_water (66.7%)
+
+  Cluster 8:
+    Size: 17 (3.5%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.174
+    Dominant species: salmonella_group (100.0%)
+    Dominant source: drinking_water (41.2%)
+
+  Cluster 9:
+    Size: 5 (1.0%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.087
+    Dominant species: escherichia_coli (100.0%)
+    Dominant source: fish_tilapia (60.0%)
+
+  Cluster 10:
+    Size: 5 (1.0%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.087
+    Dominant species: escherichia_coli (60.0%)
+    Dominant source: fish_tilapia (60.0%)
+
+  Cluster 11:
+    Size: 5 (1.0%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.000
+    Dominant species: escherichia_coli (100.0%)
+    Dominant source: fish_tilapia (80.0%)
+
+  Cluster 12:
+    Size: 18 (3.7%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.087
+    Dominant species: escherichia_coli (100.0%)
+    Dominant source: fish_kaolang (38.9%)
+
+  Cluster 13:
+    Size: 5 (1.0%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.000
+    Dominant species: escherichia_coli (100.0%)
+    Dominant source: fish_gusaw (60.0%)
+
+  Cluster 14:
+    Size: 6 (1.2%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.000
+    Dominant species: escherichia_coli (100.0%)
+    Dominant source: fish_gusaw (33.3%)
+
+  Cluster 15:
+    Size: 6 (1.2%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.043
+    Dominant species: escherichia_coli (100.0%)
+    Dominant source: drinking_water (33.3%)
+
+  Cluster 16:
+    Size: 7 (1.4%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.130
+    Dominant species: escherichia_coli (57.1%)
+    Dominant source: drinking_water (57.1%)
+
+  Cluster 17:
+    Size: 7 (1.4%)
+    MDR rate: 0.0%
+    Mean MAR index: 0.174
+    Dominant species: klebsiella_pneumoniae_ssp_pneumoniae (57.1%)
+    Dominant source: fish_tilapia (57.1%)
+
+================================================================================
+END OF REPORT
+================================================================================
