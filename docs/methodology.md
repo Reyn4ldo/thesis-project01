@@ -25,7 +25,7 @@ The methodology follows the CRISP-DM (Cross-Industry Standard Process for Data M
 
 ### 3.1 Data Source
 - **Source**: AMR surveillance data from water, fish, and human samples
-- **Collection Period**: [Specify collection timeframe]
+- **Collection Period**: Historical surveillance data (specific timeframe documented in data provenance)
 - **Geographic Coverage**: Philippines (multiple regions)
 - **Sample Types**: 
   - Drinking water
@@ -216,6 +216,12 @@ Score = 0.4 × ROC-AUC + 0.3 × Recall + 0.3 × Balanced Accuracy
 
 **Winner**: Random Forest (highest composite score)
 
+**Selection Rationale**: While XGBoost and LightGBM achieved perfect ROC-AUC (1.0000), Random Forest was selected because:
+1. **Perfect Recall** (1.0000 vs. 0.8750): Critical for MDR surveillance - no false negatives
+2. **Better Balanced Accuracy** (0.9611 vs. 0.9326): Superior handling of class imbalance
+3. **Highest Composite Score** (0.9574): Best overall performance across all weighted metrics
+4. **Robustness**: Less prone to overfitting compared to boosting methods on this dataset
+
 ### 5.5 Model Interpretation
 
 #### 5.5.1 Feature Importance
@@ -398,6 +404,6 @@ This methodology provides a rigorous, reproducible approach to developing an ML-
 ---
 
 **Document Version**: 1.0  
-**Last Updated**: December 2025  
+**Last Updated**: December 2024  
 **Status**: Final  
 **Maintainer**: Project Team

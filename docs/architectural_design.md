@@ -498,12 +498,16 @@ User Output (JSON/UI)
 ```yaml
 services:
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports: ["8000:8000"]
     volumes: ["./data:/app/data", "./models:/app/models"]
     
   dashboard:
-    build: -f Dockerfile.dashboard
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
     ports: ["8501:8501"]
     depends_on: [api]
     environment: ["API_URL=http://api:8000"]
@@ -788,6 +792,6 @@ This architectural design provides a robust, scalable, and maintainable foundati
 ---
 
 **Document Version**: 1.0  
-**Last Updated**: December 2025  
+**Last Updated**: December 2024  
 **Status**: Final  
 **Maintainer**: Architecture Team
