@@ -57,12 +57,12 @@ class FeatureEngineer:
                     self.label_encoders[col] = le
                 else:
                     if col in self.label_encoders:
-                        # Handle unseen categories
+                        # Handle unseen categories efficiently
                         le = self.label_encoders[col]
-                        df_features[f"{col}_encoded"] = df_features[col].apply(
-                            lambda x: le.transform([x])[0] 
-                            if x in le.classes_ 
-                            else -1
+                        # Map known categories, use -1 for unknown
+                        known_categories = set(le.classes_)
+                        df_features[f"{col}_encoded"] = df_features[col].fillna("unknown").map(
+                            lambda x: le.transform([x])[0] if x in known_categories else -1
                         )
         
         # Select feature columns

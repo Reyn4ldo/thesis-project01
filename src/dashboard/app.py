@@ -54,16 +54,28 @@ def load_models():
     try:
         # Load feature engineer
         fe_path = models_dir / "feature_engineer.pkl"
-        feature_engineer = joblib.load(fe_path) if fe_path.exists() else None
+        if fe_path.exists():
+            feature_engineer = joblib.load(fe_path)
+        else:
+            st.warning(f"⚠️ Feature engineer not found at {fe_path}")
+            feature_engineer = None
         
         # Load leaderboard
         leaderboard_path = models_dir / "leaderboard.csv"
-        leaderboard = pd.read_csv(leaderboard_path, index_col=0) if leaderboard_path.exists() else None
+        if leaderboard_path.exists():
+            leaderboard = pd.read_csv(leaderboard_path, index_col=0)
+        else:
+            st.warning(f"⚠️ Leaderboard not found at {leaderboard_path}")
+            leaderboard = None
         
         # Load best model
         best_model_name = leaderboard.index[0] if leaderboard is not None else "random_forest"
         best_model_path = models_dir / f"{best_model_name}.pkl"
-        best_model = joblib.load(best_model_path) if best_model_path.exists() else None
+        if best_model_path.exists():
+            best_model = joblib.load(best_model_path)
+        else:
+            st.warning(f"⚠️ Best model not found at {best_model_path}")
+            best_model = None
         
         return {
             "feature_engineer": feature_engineer,
@@ -72,8 +84,14 @@ def load_models():
             "leaderboard": leaderboard
         }
     except Exception as e:
-        st.error(f"Error loading models: {e}")
-        return {}
+        st.error(f"❌ Error loading models: {e}")
+        st.info("ℹ️ Dashboard will run with limited functionality. Please ensure models are trained.")
+        return {
+            "feature_engineer": None,
+            "best_model": None,
+            "best_model_name": None,
+            "leaderboard": None
+        }
 
 
 def main():

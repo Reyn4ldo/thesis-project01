@@ -102,7 +102,8 @@ class ModelTrainer:
                 max_depth=6,
                 learning_rate=0.1,
                 n_jobs=self.n_jobs,
-                eval_metric="logloss"
+                eval_metric="logloss",  # Consistent eval metric
+                use_label_encoder=False
             )
         
         # Add LightGBM if available
